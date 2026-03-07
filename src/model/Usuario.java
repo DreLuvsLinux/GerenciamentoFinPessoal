@@ -36,4 +36,15 @@ public class Usuario {
         this.email = email;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Usuario){
+            Usuario usuario = (Usuario) obj;
+            if(this.cpf.equals(getCpf())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
