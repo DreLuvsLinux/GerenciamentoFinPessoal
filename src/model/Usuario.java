@@ -1,14 +1,18 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Usuario {
 
     private String nome;
     private String cpf;
+    private LocalDate dataNascimento;
     private String email;
 
-    public Usuario (String nome, String cpf, String email){
+    public Usuario (String nome, String cpf, LocalDate dataNascimento, String email){
         this.nome = nome;
         this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
         this.email = email;
     }
 
@@ -28,6 +32,14 @@ public class Usuario {
         this.cpf = cpf;
     }
 
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
     public String getEmail(){
         return email;
     }
@@ -45,6 +57,11 @@ public class Usuario {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString(){
+        return "Nome: " + nome + "CPF: " + cpf + "Data de nascimento: " + dataNascimento + "E-mail: " + email;
     }
 
 }
