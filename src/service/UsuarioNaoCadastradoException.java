@@ -1,9 +1,9 @@
 package service;
 
 @SuppressWarnings("serial")
-public class UsuarioNaoCadastrado extends UsuarioException {
+public class UsuarioNaoCadastradoException extends UsuarioException {
 
-    public UsuarioNaoCadastrado(){
+    public UsuarioNaoCadastradoException(){
         super("Não há usuário cadastrado com esse CPF.");
     }
 }
