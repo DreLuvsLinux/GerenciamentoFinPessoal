@@ -1,5 +1,66 @@
 package service;
 
+import java.time.LocalDate;
+import model.Usuario;
+import repository.IUsuarioRepository;
+
 public class UsuarioService {
+
+    private IUsuarioRepository repositorio;
+
+    public UsuarioService(IUsuarioRepository repositorio){
+        this.repositorio = repositorio;
+    }
+
+    public void adicionar(Usuario usuario) 
+        throws UsuarioJaCadastradoException, CpfInvalidoException, DataInvalidaException {
+
+        validarCpf(usuario.getCpf());
+        validarDataNascimento(usuario.getDataNascimento());
+
+        boolean cadastrado = repositorio.cadastrado(usuario.getCpf());
+
+        if(cadastrado){
+            throw new UsuarioJaCadastradoException();
+        }else{
+            repositorio.adicionar(usuario);
+        }
+    }
+
+    public void remover(String cpf) throws UsuarioNaoCadastrado {
+        Usuario usuario = repositorio.consultar(cpf);
+        if(usuario != null){
+            repositorio.remover(usuario);
+        }else{
+            throw new UsuarioNaoCadastrado();
+        }
+    }
+
+    public void editar(Usuario usuario) throws UsuarioNaoCadastrado {
+        Usuario u = repositorio.consultar(usuario);
+        if(u != null){
+            repositorio.editar(usuario);
+        }else{
+            throw new UsuarioNaoCadastrado();
+        }
+    }
+
+    public void validarCpf(String cpf) throws CpfInvalidoException {
+        if(cpf == null || !cpf.matches("\\d{11}")){
+            throw new CpfInvalidoException();
+        }
+    }
+
+    private void validarDataNascimento(LocalDate data) 
+        throws DataInvalidaException {
+
+        if (data.isAfter(LocalDate.now())) {
+            throw new DataInvalidaException();
+        }
+
+        if (data.isBefore(LocalDate.now().minusYears(120))) {
+            throw new DataInvalidaException();
+        }
+    }
 
 }
