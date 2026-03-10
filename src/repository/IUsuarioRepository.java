@@ -10,4 +10,10 @@ public interface IUsuarioRepository {
 
     void editar(Usuario usuario);
 
+    boolean cadastrado(String cpf);
+
+    Usuario consultar(String cpf);
+
+    Usuario consultar(Usuario usuario);
+
 }
