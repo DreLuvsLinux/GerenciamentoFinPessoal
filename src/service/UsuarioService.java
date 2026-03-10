@@ -27,22 +27,26 @@ public class UsuarioService {
         }
     }
 
-    public void remover(String cpf) throws UsuarioNaoCadastrado {
+    public void remover(String cpf) throws UsuarioNaoCadastradoException {
         Usuario usuario = repositorio.consultar(cpf);
         if(usuario != null){
             repositorio.remover(usuario);
         }else{
-            throw new UsuarioNaoCadastrado();
+            throw new UsuarioNaoCadastradoException();
         }
     }
 
-    public void editar(Usuario usuario) throws UsuarioNaoCadastrado {
+    public void editar(Usuario usuario) throws UsuarioNaoCadastradoException {
         Usuario u = repositorio.consultar(usuario);
         if(u != null){
             repositorio.editar(usuario);
         }else{
-            throw new UsuarioNaoCadastrado();
+            throw new UsuarioNaoCadastradoException();
         }
+    }
+
+    public Usuario consultar(String cpf) {
+        return repositorio.consultar(cpf);
     }
 
     public void validarCpf(String cpf) throws CpfInvalidoException {
