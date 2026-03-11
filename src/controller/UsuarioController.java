@@ -11,6 +11,10 @@ public class UsuarioController {
 
     private UsuarioService service;
 
+    public UsuarioController() {
+        this.service = new UsuarioService(); // Adicionei o construtor vazio
+    }
+    
     public UsuarioController(UsuarioService service){
         this.service = service;
     }
