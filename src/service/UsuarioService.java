@@ -67,4 +67,15 @@ public class UsuarioService {
         }
     }
 
+    public Usuario login(String cpf) throws UsuarioNaoCadastradoException {
+
+        Usuario usuario = repositorio.consultar(cpf);
+
+        if(usuario == null){
+            throw new UsuarioNaoCadastradoException();
+        }
+
+        return usuario;
+    }
+
 }
