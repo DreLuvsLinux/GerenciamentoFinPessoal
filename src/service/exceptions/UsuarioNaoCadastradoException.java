@@ -1,4 +1,4 @@
-package service;
+package service.exceptions;
 
 @SuppressWarnings("serial")
 public class UsuarioNaoCadastradoException extends UsuarioException {

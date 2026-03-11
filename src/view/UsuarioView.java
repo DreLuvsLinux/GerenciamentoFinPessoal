@@ -3,7 +3,7 @@ package view;
 import controller.UsuarioController;
 import java.util.Scanner;
 import model.Usuario;
-import service.UsuarioNaoCadastradoException;
+import service.exceptions.UsuarioNaoCadastradoException;
 
 public class UsuarioView {
 

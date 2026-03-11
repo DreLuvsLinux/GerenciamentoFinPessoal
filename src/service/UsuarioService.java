@@ -3,6 +3,10 @@ package service;
 import java.time.LocalDate;
 import model.Usuario;
 import repository.IUsuarioRepository;
+import service.exceptions.CpfInvalidoException;
+import service.exceptions.DataInvalidaException;
+import service.exceptions.UsuarioJaCadastradoException;
+import service.exceptions.UsuarioNaoCadastradoException;
 
 public class UsuarioService {
 

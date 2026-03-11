@@ -1,11 +1,11 @@
 package controller;
 
 import model.Usuario;
-import service.CpfInvalidoException;
-import service.DataInvalidaException;
-import service.UsuarioJaCadastradoException;
-import service.UsuarioNaoCadastradoException;
 import service.UsuarioService;
+import service.exceptions.CpfInvalidoException;
+import service.exceptions.DataInvalidaException;
+import service.exceptions.UsuarioJaCadastradoException;
+import service.exceptions.UsuarioNaoCadastradoException;
 
 public class UsuarioController {
 
