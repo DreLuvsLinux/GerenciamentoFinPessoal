@@ -12,6 +12,10 @@ public class UsuarioService {
 
     private IUsuarioRepository repositorio;
 
+    public UsuarioService() {
+        this.repositorio = new UsuarioRepository.java();  // Adicionei o construtor vazio
+    }
+    
     public UsuarioService(IUsuarioRepository repositorio){
         this.repositorio = repositorio;
     }
@@ -41,7 +45,7 @@ public class UsuarioService {
     }
 
     public void editar(Usuario usuario) throws UsuarioNaoCadastradoException {
-        Usuario u = repositorio.consultar(usuario);
+        Usuario u = repositorio.consultar(usuario.getCpf());  // get.Cpf pra buscar um cpf no repositório já que não vamos usar o usuario para buscar
         if(u != null){
             repositorio.editar(usuario);
         }else{
