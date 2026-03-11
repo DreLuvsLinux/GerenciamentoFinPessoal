@@ -32,4 +32,8 @@ public class UsuarioController {
         return service.consultar(cpf);
     }
 
+    public Usuario login(String cpf) throws UsuarioNaoCadastradoException {
+        return service.login(cpf);
+    }
+
 }
