@@ -1,13 +1,14 @@
 package view;
 
 import controller.UsuarioController;
-import java.util.Scanner;
-import java.time.LocalDate;
 import model.Usuario;
-import service.exceptions.UsuarioNaoCadastradoException;
-import service.exceptions.UsuarioJaCadastradoException;
 import service.exceptions.CpfInvalidoException;
-import service.exceptions.DataInvalidaException; // Novas exções importadas.
+import service.exceptions.DataInvalidaException;
+import service.exceptions.UsuarioJaCadastradoException;
+import service.exceptions.UsuarioNaoCadastradoException; // Novas exções importadas.
+
+import java.time.LocalDate;
+import java.util.Scanner;
 
 public class UsuarioView {
 
@@ -17,18 +18,19 @@ public class UsuarioView {
 
     public UsuarioView(UsuarioController controller, Usuario usuario) {
         this.controller = controller;
-        this.usuarioLogado = usuario;
-        scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
+        this.usuarioLogado = usuario; 
     }
 
     public void menuInicial() { // Menu inicial implementado
+
         int opcao;
 
         do {
             System.out.println("\n=== MENU USUÁRIO ===");
-            System.out.println("1- Cadastrar usuário");
-            System.out.println("2- Login");
-            System.out.println("0- Voltar");
+            System.out.println("1 - Cadastrar usuário");
+            System.out.println("2 - Login");
+            System.out.println("0 - Voltar");
 
             opcao = scanner.nextInt();
             scanner.nextLine();
@@ -48,13 +50,14 @@ public class UsuarioView {
                     break;
 
                 default:
-                    System.out.println("Opção inválida.");                    
+                    System.out.println("Opção inválida.");
             }
+
         } while (opcao != 0);
     }
 
     private void cadastrarUsuario() { // Cadastro de usuário implementado
-        
+
         try {
 
             System.out.print("Nome: ");
@@ -116,6 +119,7 @@ public class UsuarioView {
     }
 
     public void menuUsuario() {
+
         int opcao;
 
         do {
@@ -123,12 +127,14 @@ public class UsuarioView {
             System.out.println("1 - Ver meus dados");
             System.out.println("2 - Editar meus dados");
             System.out.println("3 - Excluir minha conta");
+            System.out.println("4 - Transações");
             System.out.println("0 - Logout");
 
             opcao = scanner.nextInt();
             scanner.nextLine();
 
-            switch(opcao) {
+            switch (opcao) {
+
                 case 1:
                     visualizarDados();
                     break;
@@ -143,8 +149,8 @@ public class UsuarioView {
 
                 case 4:
                     TransacaoView transacaoView = new TransacaoView(); // Transacao adicionada no menu de usuário
-                    TransacaoView.menu();
-                    break;
+                    transacaoView.menu();
+                    break;    
 
                 case 0:
                     System.out.println("Logout realizado.");
@@ -154,10 +160,11 @@ public class UsuarioView {
                     System.out.println("Opção inválida.");
             }
 
-        } while(opcao != 0);
+        } while (opcao != 0);
     }
 
     private void visualizarDados() {
+
         System.out.println("\nMEUS DADOS");
         System.out.println(usuarioLogado);
     }
@@ -165,19 +172,21 @@ public class UsuarioView {
     private void editarDados() {
 
         try {
+
             System.out.print("Novo nome: ");
             String nome = scanner.nextLine();
             usuarioLogado.setNome(nome);
-            
+
             System.out.print("Novo e-mail: ");
             String email = scanner.nextLine();
             usuarioLogado.setEmail(email);
-            
-            controller.editar(usuarioLogado); 
+
+            controller.editar(usuarioLogado);
+
             System.out.println("Dados atualizados.");
 
         } catch (UsuarioNaoCadastradoException e) {
-            
+
             System.out.println("Erro: usuário não encontrado."); // Como é um programa de console vou substituir esse log por um println comúm para ficar menos técnico a o Usuário
         }
     }
@@ -185,12 +194,14 @@ public class UsuarioView {
     private void excluirConta() {
 
         try {
+
             controller.remover(usuarioLogado.getCpf());
+
             System.out.println("Conta excluída com sucesso.");
-            
+
         } catch (UsuarioNaoCadastradoException e) {
+
             System.out.println("Erro: usuário não encontrado.");
-            
         }
     }
 }
