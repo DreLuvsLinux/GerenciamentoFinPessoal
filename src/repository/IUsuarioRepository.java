@@ -14,6 +14,6 @@ public interface IUsuarioRepository {
 
     Usuario consultar(String cpf);
 
-    Usuario consultar(Usuario usuario);
+// Removi a consulta por usuario pra consultarmos apenas por um identificador (CPF)
 
 }
