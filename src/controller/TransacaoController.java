@@ -1,7 +1,8 @@
 package controller;
 
-import service.TransacaoService;
 import model.Transacao;
+import model.Usuario;
+import service.TransacaoService;
 
 import java.util.List;
 
@@ -9,19 +10,23 @@ public class TransacaoController {
 
     private TransacaoService service = new TransacaoService();
 
-    public void registrar(Transacao t){
-        service.registrarTransacao(t);
+    public String registrar(Usuario usuario, Transacao t) {
+        return service.registrarTransacao(usuario, t);
     }
 
-    public void remover(int id){
-        service.removerTransacao(id);
+    public void remover(Usuario usuario, int indice) {
+        service.removerTransacao(usuario, indice);
     }
 
-    public List<Transacao> listar(){
-        return service.listarTransacoes();
+    public List<Transacao> listar(Usuario usuario) {
+        return service.listarTransacoes(usuario);
     }
 
-    public double saldo(){
-        return service.calcularSaldo();
+    public double saldo(Usuario usuario) {
+        return service.calcularSaldo(usuario);
+    }
+
+    public double totalDespesas(Usuario usuario) {
+        return service.calcularTotalDespesas(usuario);
     }
 }
