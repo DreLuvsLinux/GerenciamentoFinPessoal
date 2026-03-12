@@ -7,6 +7,14 @@ import model.Usuario;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+Controlador responsável por intermediar a comunicação entre
+a interface do usuário (View) e a camada de regras de negócio (Service)
+no gerenciamento de transações financeiras.
+
+Atua como uma fachada para as operações relacionadas às transações,
+como registrar, remover, listar e calcular saldo. @André */
+
 public class TransacaoView {
 
     private TransacaoController controller;
@@ -123,3 +131,4 @@ public class TransacaoView {
         System.out.println("Transação removida.");
     }
 }
+
