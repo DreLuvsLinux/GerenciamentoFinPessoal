@@ -63,9 +63,10 @@ public class RelatorioView {
             }
 
             if (relatorio != null) {
-                relatorio.gerar(usuario);
+                relatorio.gerar(usuario); // Método gerar()
             }
 
         } while (op != 0);
     }
+
 }
