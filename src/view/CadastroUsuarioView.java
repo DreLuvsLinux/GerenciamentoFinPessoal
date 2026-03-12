@@ -1,46 +1,39 @@
 package view;
 
-import controller.UsuarioController;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import model.Usuario;
 
-public class CadastroUsuarioView {
-    
+import controller.TransacaoController;
+import controller.UsuarioController;
+import model.Usuario;
+import service.exceptions.UsuarioNaoCadastradoException;
+
+public class LoginView {
+
     private UsuarioController controller;
+    private TransacaoController transacaoController;
     private Scanner scanner;
 
-    public CadastroUsuarioView(UsuarioController controller) {
+    public LoginView(UsuarioController controller, TransacaoController transacaoController) {
         this.controller = controller;
-        scanner = new Scanner(System.in);
+        this.transacaoController = transacaoController;
+        this.scanner = new Scanner(System.in);
     }
 
-    public void cadastrarUsuario() {
+    public void fazerLogin() {
+
+        System.out.print("Digite o CPF: ");
+        String cpf = scanner.nextLine();
+
         try {
+            Usuario usuario = controller.login(cpf);
 
-            System.out.print("Nome: ");
-            String nome = scanner.nextLine();
+            System.out.println("Login realizado com sucesso!");
 
-            System.out.print("CPF: ");
-            String cpf = scanner.nextLine();
+            UsuarioView usuarioView = new UsuarioView(controller, usuario, transacaoController);
+            usuarioView.menuUsuario();
 
-            System.out.print("Data de nascimento (DD/MM/AAAA): ");
-            String dataTexto = scanner.nextLine();
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate dataNascimento = LocalDate.parse(dataTexto, formatter);
-
-            System.out.print("Email: ");
-            String email = scanner.nextLine();
-
-            Usuario usuario = new Usuario(nome, cpf, dataNascimento, email);
-            controller.adicionar(usuario);
-
-            System.out.println("Usuário cadastrado com sucesso!");
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (UsuarioNaoCadastradoException e) {
+            System.out.println("Usuário não encontrado.");
         }
     }
 }
