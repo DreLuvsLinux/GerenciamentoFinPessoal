@@ -8,15 +8,17 @@ public class Usuario {
     private String cpf;
     private LocalDate dataNascimento;
     private String email;
+    private double limiteGastos;
 
     public Usuario (String nome, String cpf, LocalDate dataNascimento, String email){
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.email = email;
+        this.limiteGastos = 0.0;
     }
 
-    public String getNome(){
+    public String getNome(){ // PRIMEIRO EXEMPLO DE ENCAPSULAMENTO !!
         return nome;
     }
 
@@ -48,11 +50,19 @@ public class Usuario {
         this.email = email;
     }
 
+    public double getLimiteGastos() {
+        return limiteGastos;
+    }
+
+    public void setLimiteGastos(double limiteGastos) {
+        this.limiteGastos = limiteGastos;
+    }
+
     @Override
     public boolean equals(Object obj){
         if (obj instanceof Usuario){
             Usuario usuario = (Usuario) obj;
-            if(this.cpf.equals(getCpf())){
+            if(this.cpf.equals(usuario.getCpf())){
                 return true;
             }
         }
@@ -61,7 +71,7 @@ public class Usuario {
 
     @Override
     public String toString(){
-        return "Nome: " + nome + "CPF: " + cpf + "Data de nascimento: " + dataNascimento + "E-mail: " + email;
+        return "Nome: " + nome + "CPF: " + cpf + "Data de nascimento: " + dataNascimento + "E-mail: " + email + " Limite de gastos: R$ " + limiteGastos;
     }
 
 }
