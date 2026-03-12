@@ -1,5 +1,13 @@
 package model;
 
+/**
+Representa uma transação financeira registrada pelo usuário.
+Uma transação pode ser do tipo RECEITA ou DESPESA e contém
+informações como descrição e valor.
+
+As transações são utilizadas para cálculo de saldo e geração
+de relatórios financeiros no sistema. @André */
+
 public class Transacao {
 
     private double valor;
@@ -29,4 +37,5 @@ public class Transacao {
         return descricao + " - " + tipo + " - R$ " + valor;
     }
 }
+
 
