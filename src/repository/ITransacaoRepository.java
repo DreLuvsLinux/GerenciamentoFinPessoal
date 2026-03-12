@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ITransacaoRepository {
 
-    void salvar(Transacao t);
-    void remover(int id);
-    List<Transacao> listar();
+    void salvar(String cpfUsuario. Transacao t);
+    void remover(String cpfUsuario, int indice);
+    List<Transacao> listar(String cpfUsuario);
 }
