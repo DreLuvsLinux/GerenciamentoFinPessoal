@@ -4,7 +4,17 @@ import controller.TransacaoController;
 import model.Transacao;
 import model.Usuario;
 
-public class RelatorioDespesas extends Relatorio { // HERANÇA!!!! HAHA
+/**
+Implementação de relatório responsável por listar
+todas as receitas registradas pelo usuário.
+
+O relatório percorre as transações do usuário e exibe
+apenas aquelas classificadas como receita.
+
+Esta classe demonstra o uso de herança ao estender
+a classe abstrata Relatorio. @João Pedro */
+
+public class RelatorioDespesas extends Relatorio { // HERANÇA!!!!
 
     private TransacaoController controller;
 
@@ -23,4 +33,5 @@ public class RelatorioDespesas extends Relatorio { // HERANÇA!!!! HAHA
             }
         }
     }
+
 }
