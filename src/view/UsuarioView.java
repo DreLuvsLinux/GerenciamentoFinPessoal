@@ -1,13 +1,11 @@
 package view;
 
+import controller.TransacaoController;
 import controller.UsuarioController;
 import model.Usuario;
-import service.exceptions.CpfInvalidoException;
-import service.exceptions.DataInvalidaException;
-import service.exceptions.UsuarioJaCadastradoException;
-import service.exceptions.UsuarioNaoCadastradoException; // Novas exções importadas.
+import service.exceptions.UsuarioNaoCadastradoException;
+import view.RelatorioView;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UsuarioView {
@@ -15,111 +13,16 @@ public class UsuarioView {
     private UsuarioController controller;
     private Usuario usuarioLogado;
     private Scanner scanner;
+    private TransacaoController transacaoController;
 
-    public UsuarioView(UsuarioController controller, Usuario usuario) {
+    public UsuarioView(UsuarioController controller, Usuario usuario, TransacaoController transacaoController) {
         this.controller = controller;
+        this.usuarioLogado = usuario;
+        this.transacaoController = transacaoController;
         this.scanner = new Scanner(System.in);
-        this.usuarioLogado = usuario; 
-    }
-
-    public void menuInicial() { // Menu inicial implementado
-
-        int opcao;
-
-        do {
-            System.out.println("\n=== MENU USUÁRIO ===");
-            System.out.println("1 - Cadastrar usuário");
-            System.out.println("2 - Login");
-            System.out.println("0 - Voltar");
-
-            opcao = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcao) {
-
-                case 1:
-                    cadastrarUsuario();
-                    break;
-
-                case 2:
-                    login();
-                    break;
-
-                case 0:
-                    System.out.println("Voltando...");
-                    break;
-
-                default:
-                    System.out.println("Opção inválida.");
-            }
-
-        } while (opcao != 0);
-    }
-
-    private void cadastrarUsuario() { // Cadastro de usuário implementado
-
-        try {
-
-            System.out.print("Nome: ");
-            String nome = scanner.nextLine();
-
-            System.out.print("CPF (11 números): ");
-            String cpf = scanner.nextLine();
-
-            System.out.print("Ano de nascimento: ");
-            int ano = scanner.nextInt();
-
-            System.out.print("Mês de nascimento: ");
-            int mes = scanner.nextInt();
-
-            System.out.print("Dia de nascimento: ");
-            int dia = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.print("Email: ");
-            String email = scanner.nextLine();
-
-            Usuario usuario = new Usuario(
-                    nome,
-                    cpf,
-                    LocalDate.of(ano, mes, dia),
-                    email
-            );
-
-            controller.adicionar(usuario);
-
-            System.out.println("Usuário cadastrado com sucesso!");
-
-        } catch (UsuarioJaCadastradoException e) {
-            System.out.println("Erro: usuário já cadastrado.");
-
-        } catch (CpfInvalidoException e) {
-            System.out.println("Erro: CPF inválido.");
-
-        } catch (DataInvalidaException e) {
-            System.out.println("Erro: data de nascimento inválida.");
-        }
-    }
-
-    private void login() { // Login implementado
-
-        try {
-
-            System.out.print("Digite o CPF: ");
-            String cpf = scanner.nextLine();
-
-            usuarioLogado = controller.login(cpf);
-
-            menuUsuario();
-
-        } catch (UsuarioNaoCadastradoException e) {
-
-            System.out.println("Erro: usuário não encontrado.");
-        }
     }
 
     public void menuUsuario() {
-
         int opcao;
 
         do {
@@ -128,13 +31,15 @@ public class UsuarioView {
             System.out.println("2 - Editar meus dados");
             System.out.println("3 - Excluir minha conta");
             System.out.println("4 - Transações");
+            System.out.println("5 - Definir limite de gastos");
+            System.out.println("6 - Verificar limite de gastos");
+            System.out.println("7 - Relatórios");
             System.out.println("0 - Logout");
 
             opcao = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcao) {
-
                 case 1:
                     visualizarDados();
                     break;
@@ -148,9 +53,22 @@ public class UsuarioView {
                     return;
 
                 case 4:
-                    TransacaoView transacaoView = new TransacaoView(); // Transacao adicionada no menu de usuário
+                    TransacaoView transacaoView = new TransacaoView(transacaoController, usuarioLogado);
                     transacaoView.menu();
-                    break;    
+                    break;
+
+                case 5:
+                    definirLimite();
+                    break;
+
+                case 6:
+                    verificarLimite();
+                    break;
+
+                case 7:
+                    RelatorioView relatorioView = new RelatorioView(transacaoController, usuarioLogado);
+                    relatorioView.menu();
+                    break;
 
                 case 0:
                     System.out.println("Logout realizado.");
@@ -164,15 +82,12 @@ public class UsuarioView {
     }
 
     private void visualizarDados() {
-
         System.out.println("\nMEUS DADOS");
         System.out.println(usuarioLogado);
     }
 
     private void editarDados() {
-
         try {
-
             System.out.print("Novo nome: ");
             String nome = scanner.nextLine();
             usuarioLogado.setNome(nome);
@@ -182,26 +97,41 @@ public class UsuarioView {
             usuarioLogado.setEmail(email);
 
             controller.editar(usuarioLogado);
-
             System.out.println("Dados atualizados.");
 
         } catch (UsuarioNaoCadastradoException e) {
-
-            System.out.println("Erro: usuário não encontrado."); // Como é um programa de console vou substituir esse log por um println comúm para ficar menos técnico a o Usuário
+            System.out.println("Erro: usuário não cadastrado.");
         }
     }
 
     private void excluirConta() {
-
         try {
-
             controller.remover(usuarioLogado.getCpf());
-
             System.out.println("Conta excluída com sucesso.");
-
         } catch (UsuarioNaoCadastradoException e) {
+            System.out.println("Erro: usuário não cadastrado.");
+        }
+    }
 
-            System.out.println("Erro: usuário não encontrado.");
+    private void definirLimite() {
+        System.out.print("Digite o limite de gastos: ");
+        double limite = scanner.nextDouble();
+        scanner.nextLine();
+
+        usuarioLogado.setLimiteGastos(limite);
+        System.out.println("Limite de gastos definido com sucesso.");
+    }
+
+    private void verificarLimite() {
+        double totalDespesas = transacaoController.totalDespesas(usuarioLogado);
+
+        System.out.println("Limite definido: R$ " + usuarioLogado.getLimiteGastos());
+        System.out.println("Total de despesas: R$ " + totalDespesas);
+
+        if (usuarioLogado.getLimiteGastos() > 0 && totalDespesas > usuarioLogado.getLimiteGastos()) {
+            System.out.println("Limite de gastos excedido!");
+        } else {
+            System.out.println("Gastos dentro do limite.");
         }
     }
 }
