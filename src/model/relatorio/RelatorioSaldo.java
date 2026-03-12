@@ -15,7 +15,7 @@ public class RelatorioSaldo extends Relatorio {
     public void gerar(Usuario usuario) {
         double saldo = controller.saldo(usuario);
 
-        System.out.println("\n=== RELATÓRIO DE SALDO ===");
+        System.out.println("\n    RELATÓRIO DE SALDO    ");
         System.out.println("Usuário: " + usuario.getNome());
         System.out.println("Saldo atual: R$ " + saldo);
     }

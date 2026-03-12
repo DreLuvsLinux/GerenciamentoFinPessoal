@@ -15,7 +15,7 @@ public class RelatorioDespesas extends Relatorio { // HERANÇA!!!! HAHA
     @Override
     public void gerar(Usuario usuario) {
 
-        System.out.println("\n=== RELATÓRIO DE DESPESAS ===");
+        System.out.println("\n    RELATÓRIO DE DESPESAS    ");
 
         for (Transacao t : controller.listar(usuario)) {
             if (t.getTipo().equalsIgnoreCase("DESPESA")) {
