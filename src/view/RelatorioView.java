@@ -34,7 +34,7 @@ public class RelatorioView {
             op = scanner.nextInt();
             scanner.nextLine();
 
-            Relatorio relatorio = null; // POLIMORFISMO !!
+            Relatorio relatorio = null; // POLIMORFISMO (sobrescrita) !!
 
             switch (op) {
 
@@ -70,3 +70,4 @@ public class RelatorioView {
     }
 
 }
+
