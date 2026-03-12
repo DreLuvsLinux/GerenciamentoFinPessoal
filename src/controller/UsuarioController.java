@@ -15,7 +15,7 @@ public class UsuarioController {
         this.service = new UsuarioService();
     }
 
-    public UsuarioController(UsuarioService service) {
+    public UsuarioController(UsuarioService service) { // injeção de dependência (parcial), recebendo UsuarioService de fora
         this.service = service;
     }
 
