@@ -1,23 +1,20 @@
 package view;
 
+import controller.TransacaoController;
 import controller.UsuarioController;
+
 import java.util.Scanner;
-import repository.IUsuarioRepository;
-import repository.UsuarioRepository;
-import service.UsuarioService;
 
 public class TelaInicialView {
 
     private UsuarioController controller;
+    private TransacaoController transacaoController;
     private Scanner scanner;
 
-    public TelaInicialView(){
-        scanner = new Scanner(System.in);
-
-        IUsuarioRepository repositorio = new UsuarioRepository();
-        UsuarioService service = new UsuarioService(repositorio);
-        controller = new UsuarioController(service);
-    
+    public TelaInicialView() {
+        this.scanner = new Scanner(System.in);
+        this.controller = new UsuarioController();
+        this.transacaoController = new TransacaoController();
     }
 
     public void iniciar() {
@@ -33,14 +30,14 @@ public class TelaInicialView {
             opcao = scanner.nextInt();
             scanner.nextLine();
 
-            switch(opcao) {
+            switch (opcao) {
                 case 1:
                     CadastroUsuarioView cadastro = new CadastroUsuarioView(controller);
                     cadastro.cadastrarUsuario();
                     break;
 
                 case 2:
-                    LoginView loginView = new LoginView(controller);
+                    LoginView loginView = new LoginView(controller, transacaoController);
                     loginView.fazerLogin();
                     break;
 
@@ -51,7 +48,6 @@ public class TelaInicialView {
                 default:
                     System.out.println("Opção inválida.");
             }
-        } while(opcao != 0);
+        } while (opcao != 0);
     }
-
 }
