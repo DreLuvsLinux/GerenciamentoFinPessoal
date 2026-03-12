@@ -11,6 +11,11 @@ public class TransacaoService {
     private TransacaoRepository repository = new TransacaoRepository();
 
     public String registrarTransacao(Usuario usuario, Transacao t) {
+/**
+Registra uma nova transação para o usuário informado.
+Caso a transação seja uma despesa, o método verifica
+se o valor ultrapassa o limite de gastos definido pelo o usuário.
+Se ultrapassar, a transação pode ser bloqueada. @André*/
 
         if (t.getTipo().equalsIgnoreCase("DESPESA")) {
             double limite = usuario.getLimiteGastos();
@@ -67,3 +72,4 @@ public class TransacaoService {
         return total;
     }
 }
+
