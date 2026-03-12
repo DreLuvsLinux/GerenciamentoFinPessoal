@@ -2,6 +2,14 @@ package repository;
 
 import model.Usuario;
 
+/**
+Interface que define as operações de acesso e manipulação
+de usuários no sistema.
+
+Seu objetivo é desacoplar a lógica de negócio da implementação
+concreta de armazenamento de dados, permitindo diferentes
+implementações de repositório. @Ana Carolina */
+
 public interface IUsuarioRepository {
 
     void adicionar(Usuario usuario);
@@ -14,6 +22,6 @@ public interface IUsuarioRepository {
 
     Usuario consultar(String cpf);
 
-// Removi a consulta por usuario pra consultarmos apenas por um identificador (CPF)
+// Removi a consulta por usuario pra consultarmos apenas por um identificador (CPF) @André
 
 }
