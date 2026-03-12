@@ -6,6 +6,18 @@ import controller.TransacaoController;
 import model.Usuario;
 import model.relatorio.*;
 
+/**
+Classe responsável pela interface de interação com o usuário
+para geração de relatórios financeiros.
+
+Através desta classe o usuário pode selecionar diferentes
+tipos de relatórios disponíveis no sistema, como relatório
+de saldo, receitas, despesas ou resumo financeiro.
+
+A seleção do relatório demonstra o uso de polimorfismo,
+pois diferentes implementações da classe Relatorio podem
+ser utilizadas através da mesma referência. @João Pedro*/
+
 public class RelatorioView {
 
     private Scanner scanner;
@@ -70,4 +82,5 @@ public class RelatorioView {
     }
 
 }
+
 
