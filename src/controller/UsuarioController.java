@@ -11,16 +11,16 @@ public class UsuarioController {
 
     private UsuarioService service;
 
-    public UsuarioController() {
-        this.service = new UsuarioService(); // Adicionei o construtor vazio
+    public UsuarioController() { // Adicionei um construtor vazio pra rodar na main
+        this.service = new UsuarioService();
     }
-    
-    public UsuarioController(UsuarioService service){
+
+    public UsuarioController(UsuarioService service) {
         this.service = service;
     }
 
-    public void adicionar(Usuario usuario) 
-        throws UsuarioJaCadastradoException, CpfInvalidoException, DataInvalidaException {
+    public void adicionar(Usuario usuario)
+            throws UsuarioJaCadastradoException, CpfInvalidoException, DataInvalidaException {
         service.adicionar(usuario);
     }
 
@@ -39,5 +39,4 @@ public class UsuarioController {
     public Usuario login(String cpf) throws UsuarioNaoCadastradoException {
         return service.login(cpf);
     }
-
 }
