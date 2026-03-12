@@ -6,20 +6,21 @@ import repository.TransacaoRepository;
 
 import java.util.List;
 
-/**
-Classe responsável pelas regras de negócio relacionadas
-ao gerenciamento de transações financeiras.
-
-Implementa operações como registro de receitas e despesas,
-cálculo de saldo e verificação do limite de gastos do usuário.
-
-Essa classe coordena o acesso ao repositório de transações. @André */
-
 public class TransacaoService {
 
     private TransacaoRepository repository = new TransacaoRepository();
 
     public String registrarTransacao(Usuario usuario, Transacao t) {
+
+/**
+Registra uma nova transação para o usuário informado.
+
+Caso a transação seja uma despesa, o método verifica
+se o valor ultrapassa o limite de gastos definido pelo usuário.
+Se o limite for ultrapassado, a transação pode ser bloqueada.
+
+@param usuario usuário responsável pela transação
+@param t transação que será registrada no sistema @André */
         
         if (t.getTipo().equalsIgnoreCase("DESPESA")) {
             double limite = usuario.getLimiteGastos();
@@ -76,6 +77,7 @@ public class TransacaoService {
         return total;
     }
 }
+
 
 
 
