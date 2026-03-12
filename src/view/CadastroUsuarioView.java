@@ -1,39 +1,46 @@
 package view;
 
-import java.util.Scanner;
-
-import controller.TransacaoController;
 import controller.UsuarioController;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 import model.Usuario;
-import service.exceptions.UsuarioNaoCadastradoException;
 
-public class LoginView {
-
+public class CadastroUsuarioView {
+    
     private UsuarioController controller;
-    private TransacaoController transacaoController;
     private Scanner scanner;
 
-    public LoginView(UsuarioController controller, TransacaoController transacaoController) {
+    public CadastroUsuarioView(UsuarioController controller) {
         this.controller = controller;
-        this.transacaoController = transacaoController;
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
-    public void fazerLogin() {
-
-        System.out.print("Digite o CPF: ");
-        String cpf = scanner.nextLine();
-
+    public void cadastrarUsuario() {
         try {
-            Usuario usuario = controller.login(cpf);
 
-            System.out.println("Login realizado com sucesso!");
+            System.out.print("Nome: ");
+            String nome = scanner.nextLine();
 
-            UsuarioView usuarioView = new UsuarioView(controller, usuario, transacaoController);
-            usuarioView.menuUsuario();
+            System.out.print("CPF: ");
+            String cpf = scanner.nextLine();
 
-        } catch (UsuarioNaoCadastradoException e) {
-            System.out.println("Usuário não encontrado.");
+            System.out.print("Data de nascimento (DD/MM/AAAA): ");
+            String dataTexto = scanner.nextLine();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataNascimento = LocalDate.parse(dataTexto, formatter);
+
+            System.out.print("Email: ");
+            String email = scanner.nextLine();
+
+            Usuario usuario = new Usuario(nome, cpf, dataNascimento, email);
+            controller.adicionar(usuario);
+
+            System.out.println("Usuário cadastrado com sucesso!");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
