@@ -2,10 +2,13 @@ package model;
 
 import java.time.LocalDate;
 /**
-  Representa um usuário do sistema de gerenciamento financeiro.
-  Armazena informações pessoais e limite de gastos.
-  @Ana Carolina
- */
+Representa um usuário do sistema de gerenciamento financeiro pessoal.
+Armazena informações do usuário como nome, CPF, data de nascimento,
+e-mail e limite de gastos definido para controle financeiro.
+
+Essa classe faz parte da camada de modelo e representa a entidade
+principal do sistema. @Ana Carolina */
+
 public class Usuario {
 
     private String nome;
