@@ -1,7 +1,11 @@
 package model;
 
 import java.time.LocalDate;
-
+/**
+  Representa um usuário do sistema de gerenciamento financeiro.
+  Armazena informações pessoais e limite de gastos.
+  @Ana Carolina
+ */
 public class Usuario {
 
     private String nome;
