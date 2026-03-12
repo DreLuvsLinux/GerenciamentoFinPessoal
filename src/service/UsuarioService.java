@@ -10,6 +10,15 @@ import service.exceptions.DataInvalidaException;
 import service.exceptions.UsuarioJaCadastradoException;
 import service.exceptions.UsuarioNaoCadastradoException;
 
+/**
+Classe responsável pelas regras de negócio relacionadas
+ao gerenciamento de usuários do sistema.
+
+Realiza operações como cadastro, remoção, edição,
+validação de CPF e validação de data de nascimento.
+
+Atua como intermediária entre o controller e o repositório. @Ana Carolina */
+
 public class UsuarioService {
 
     private IUsuarioRepository repositorio;
