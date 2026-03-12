@@ -6,9 +6,9 @@ public class Transacao {
     private String descricao;
     private String tipo; // receita ou despesa
 
-    public Transacao(double valor, String descricao, String tipo) {
-        this.valor = valor;
+    public Transacao(String descricao, double valor, String tipo) {
         this.descricao = descricao;
+        this.valor = valor;
         this.tipo = tipo;
     }
 
@@ -29,3 +29,4 @@ public class Transacao {
         return descricao + " - " + tipo + " - R$ " + valor;
     }
 }
+
